@@ -1,5 +1,9 @@
 
 
+module.exports = function(app) {
+
+  var axios = require("axios");
+  var cheerio = require("cheerio");
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
@@ -87,3 +91,4 @@ app.get("/scrape", function(req, res) {
         res.json(err);
       });
   });
+}
