@@ -27,10 +27,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/newsscraper");
+mongoose.connect("mongodb://localhost/week18Populater");
 
 
-require("./routes/api-routes")(app);
+require("./routes/routes")(app);
  
 
 // Start the server
