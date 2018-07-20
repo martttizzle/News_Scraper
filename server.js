@@ -9,8 +9,15 @@ var mongoose = require("mongoose");
 // var axios = require("axios");
 // var cheerio = require("cheerio");
 
- 
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/usaToday";
+    
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
+
+ 
 var PORT = 3000;
 
 // Initialize Express
