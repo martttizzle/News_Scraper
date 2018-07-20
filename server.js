@@ -9,8 +9,7 @@ var mongoose = require("mongoose");
 // var axios = require("axios");
 // var cheerio = require("cheerio");
 
-// Require all models
-var db = require("./models");
+ 
 
 var PORT = 3000;
 
@@ -27,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/week18Populater");
+mongoose.connect("mongodb://localhost/usaToday");
 
 
 require("./routes/routes")(app);
