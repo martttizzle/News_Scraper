@@ -8,26 +8,25 @@ module.exports = function(app) {
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
-    axios.get("https://www.usatoday.com/news/").then(function(response) {
+    axios.get("http://guyanachronicle.com/category/news").then(function(response) {
       // Then, we load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(response.data);
 
   
       // Now, we grab every h2 within an article tag, and do the following:
-      $(".headline-page li").each(function(i, element) {
+      $(".td-module-thumb ").each(function(i, element) {
         // Save an empty result object
+    
         var result = {};
 
-        // Add the text and href of every link, and save them as properties of the result object
-        result.title = $(this)
-          .children("a")
-          .text();
-        result.link = $(this)
-          .children("a")
-          .attr("href");
+       // Add the text and href of every link, and save them as properties of the result object
+        result.title = $(this).children("a").attr("title");
+        result.link = $(this).children("a").attr("href");
+        result.img = $(this).children("a").children("img").attr("src");
   
         // Create a new Article using the `result` object built from scraping
-        console.log(result);
+
+        
         db.Article.create(result)
           .then(function(dbArticle) {
             // View the added result in the console
@@ -41,7 +40,8 @@ app.get("/scrape", function(req, res) {
       });
   
       // If we were able to successfully scrape and save an Article, send a message to the client
-      res.send("Scrape Complete");
+      //res.redirect("/");
+      res.send("scrape complete")
     });
   });
   

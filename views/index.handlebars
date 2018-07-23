@@ -1,0 +1,42 @@
+<div class="container-fluid headp">
+  <div class="row mt-4 mb-4">
+    <h2 class="title w-100"> Scrape-It </h2>
+    <img class="burgerpng" src="./img/scrapeIt.png" alt="burger-image">
+  </div>
+  <div class="row mx-auto justify-content-center">
+    <h3 class="w-100 text-center title">Lets scrape IndiaTimes Entertainment!!!</h3>
+    <button type="submit" class="btn btn-info mt-2" id="scrape">Scrape New Articles</button>
+  </div>
+</div>
+<div class="container-fluid bodyp">
+
+  <div class="mb-4">
+    <h3 class="mt-2 mb-2"> Saved Articles</h3>
+    {{#unless isDataPresent}}
+    <h4 class="text-white"> Oops! I couldnt find any saved articles , Please scrape and save some?</h4>
+    {{/unless}}
+  </div>
+
+  <div class="card-group cardp">
+
+    {{#if isDataPresent}} {{#each article}}
+    <div class="newcard" data-id={{this._id}}>
+      <div class="card bg-dark text-white m-2">
+        <img class="card-img" src="{{this.imgURL}}"
+          alt="Card image">
+        <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
+          <a href="{{this.link}}" target="_blank"
+            class="card-text align-bottom text-white">{{this.title}}</a>
+          <p class="card-text text-warning">{{this.shares}}</p>
+          <a>
+            <button type="submit" class="btn btn-info notes" >Notes</button>
+            <button type="submit" class="btn btn-danger delete" >Delete</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    {{/each}} {{/if}}
+
+  </div>
+
+</div>
