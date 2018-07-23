@@ -6,6 +6,17 @@ module.exports = function(app) {
   var cheerio = require("cheerio");
 
 // A GET route for scraping the echoJS website
+
+
+
+app.get('/', function (req, res) {
+  res.render('index');
+});
+
+
+
+
+
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
     axios.get("http://guyanachronicle.com/category/news").then(function(response) {
@@ -14,7 +25,7 @@ app.get("/scrape", function(req, res) {
 
   
       // Now, we grab every h2 within an article tag, and do the following:
-      $(".td-module-thumb ").each(function(i, element) {
+      $(".td-module-thumb").each(function(i, element) {
         // Save an empty result object
     
         var result = {};
