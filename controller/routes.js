@@ -10,20 +10,38 @@ module.exports = function(app) {
 
 
 app.get('/', function (req, res) {
-  res.render('index');
+  
+    // Find all Article
+    db.Article.find({})
+        .sort({_id:-1})
+        .then(function (data) {
+            // After finding all Articles, render the page and send
+            var isDataPresent;
+            var hbsobject;
+            if (data.length > 0) {
+                isDataPresent = true
+            } else {
+                isDataPresent = false
+            };
+            hbsobject = {
+                'isDataPresent': isDataPresent,
+                'article': data
+            };
+            res.render("index", hbsobject);
+        })
+        .catch(function (err) {
+            // If an error occurs, send it back to the client
+            res.json(err);
+        });
 });
 
-
-
-
-
+ 
 app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
     axios.get("http://guyanachronicle.com/category/news").then(function(response) {
       // Then, we load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(response.data);
 
-  
       // Now, we grab every h2 within an article tag, and do the following:
       $(".td-module-thumb").each(function(i, element) {
         // Save an empty result object
@@ -36,12 +54,12 @@ app.get("/scrape", function(req, res) {
         result.img = $(this).children("a").children("img").attr("src");
   
         // Create a new Article using the `result` object built from scraping
-
         
         db.Article.create(result)
           .then(function(dbArticle) {
             // View the added result in the console
             console.log(dbArticle);
+           
           })
           .catch(function(err) {
             // If an error occurred, send it to the client
@@ -52,12 +70,14 @@ app.get("/scrape", function(req, res) {
   
       // If we were able to successfully scrape and save an Article, send a message to the client
       //res.redirect("/");
-      res.send("scrape complete")
+       
+      res.render("index", result);
     });
   });
   
   // Route for getting all Articles from the db
   app.get("/articles", function(req, res) {
+    console.log(req.body);
     // Grab every document in the Articles collection
     db.Article.find({})
       .then(function(dbArticle) {

@@ -1,5 +1,22 @@
    <div class="row mx-auto justify-content-center">
      <img src="./img/chroniclelogoPNG.png">
     <h2 class="w-100 text-center title mt-6">Guyana Chronicle</h2>
-    <button type="submit" class="btn btn-danger mt-6" id="scrpNews">Scrape News</button>
+
+
+    <button type="submit" class="btn btn-danger mt-6"  id="scrpNews">Scrape News</button>
+
+ {{#if isDataPresent}} {{#each article}}
+<p>{{this.title}}</p>
+<br>
+<p>{{this.link}}</p>
+ {{!-- <img class="card-img" src="{{this.img}}" alt="Card image"> --}}
+           
+  {{/each}} {{/if}}
+
+
+
+
+
+
+
   </div>
