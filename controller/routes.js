@@ -5,9 +5,9 @@ module.exports = function(app) {
   var axios = require("axios");
   var cheerio = require("cheerio");
 
-// A GET route for scraping the echoJS website
+ 
 
-
+// Displaying the home page of the news scraper
 
 app.get('/', function (req, res) {
   
